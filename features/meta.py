@@ -2,7 +2,7 @@
 
 import fileconfig
 
-from ._compat import string_types, copyreg
+from ._compat import string_types, register_reduce
 
 __all__ = ['Config', 'FeatureSystemMeta', 'FeatureSetMeta']
 
@@ -21,12 +21,12 @@ class Config(fileconfig.Stacked):
         self.key = key
         self.context = context.strip()
         self.format = format
-        self.aliases = [] if aliases is None else aliases
+        self.aliases = aliases if aliases is not None else []
         self.inherits = inherits
         self.str_maximal = (False if not str_maximal
             else True if str_maximal is True
             else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
-        self.description = '' if description is None else description.strip()
+        self.description = description.strip() if description is not None else ''
 
 
 class FeatureSystemMeta(type):
@@ -54,6 +54,7 @@ class FeatureSystemMeta(type):
         return inst
 
 
+@register_reduce
 class FeatureSetMeta(type):
 
     system = None
@@ -72,6 +73,3 @@ class FeatureSetMeta(type):
         elif self.system.key is None:
             return self.system.__class__, (self.system._config, -1)
         return self.system.__class__, (self.system.key, -1)
-
-
-copyreg.pickle(FeatureSetMeta, FeatureSetMeta.__reduce__)

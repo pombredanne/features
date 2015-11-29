@@ -87,14 +87,13 @@ class Parser(object):
             raise ValueError('feature names in substring relation: %r'
                 % ambiguous)
 
-        regexes = map(make_regex, features)
+        regexes = map(self.make_regex, features)
         pattern = r'(?i)(?:%s)' % '|'.join(regexes)
         self.features = features
         self.regex = re.compile(pattern)
 
     def __call__(self, string):
-        indexes = (next(i for i, m in enumerate(ma.groups()) if m)
-            for ma in self.regex.finditer(string))
+        indexes = (ma.lastindex - 1 for ma in self.regex.finditer(string))
 
         features = list(map(self.features.__getitem__, indexes))
 

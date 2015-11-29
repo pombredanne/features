@@ -6,13 +6,15 @@ import concepts
 
 from ._compat import string_types, zip, map, with_metaclass
 
-from . import meta, bases, parsers, tools, visualize
+from . import meta, bases, parsers, visualize
 
 __all__ = ['FeatureSystem']
 
 
 class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
     """Feature set lattice defined by config instance.
+
+    Usage:
 
     >>> fs = FeatureSystem('plural')
 

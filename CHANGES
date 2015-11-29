@@ -1,5 +1,25 @@
-Features Changelog
-==================
+Changelog
+=========
+
+Version 0.5.5 (in development)
+------------------------------
+
+
+
+
+Version 0.5.4
+-------------
+
+Added extended Sphinx-based documentation.
+
+Fixed Python 3.5 compatibility.
+
+
+Version 0.5.3
+-------------
+
+Fixed broken manual install due to setuptools automatic zip_safe analysis not
+working as expected.
 
 
 Version 0.5.2
